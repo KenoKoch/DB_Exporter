@@ -1,1 +1,1 @@
-pyinstaller --console --add-data "C:\Users\kkoch\OneDrive - BorgWarner\Desktop\DB_Exporter\DB_Exporter-Allgemein\venv\Lib\site-packages\snap7\lib\snap7.dll;." --icon="C:\Users\kkoch\OneDrive - BorgWarner\Desktop\DB_Exporter\DB_Exporter-Allgemein\Icon.ico" --onefile --add-data "Daten.db:."   Main.py 
+pyinstaller --console --add-data "C:\venv\Lib\site-packages\snap7\lib\snap7.dll;." --icon="C:\Icon.ico" --onefile --add-data "Daten.db:."   Main.py 
