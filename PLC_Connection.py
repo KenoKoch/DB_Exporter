@@ -11,30 +11,28 @@ def Lade_UI_Daten():
     except:
         return None
 
-# Laden der Daten
-Geladene_Daten = Lade_UI_Daten()
-if Geladene_Daten != None:
-    IP = Geladene_Daten['IP']
-    Rack = Geladene_Daten['Rack']
-    Slot = Geladene_Daten['Slot']
-    Trigger = Geladene_Daten['Trigger']
-    Export = Geladene_Daten['Export']
-
-    TRIGGER_DB = Trigger
-    TRIGGER_OFFSET = 0
-
-
 def connect_to_plc():
-
-    PLC_IP = IP
-    PLC_RACK = Rack
-    PLC_SLOT = Slot
-    print(PLC_IP, PLC_RACK, PLC_SLOT)
+    # globale Variablen definieren
+    global IP, Rack, Slot, Trigger, Export, TRIGGER_DB, TRIGGER_OFFSET
+    # Daten aus json laden
+    Geladene_Daten = Lade_UI_Daten()
+    if Geladene_Daten != None:
+        IP = Geladene_Daten['IP']
+        Rack = Geladene_Daten['Rack']
+        Slot = Geladene_Daten['Slot']
+        Trigger = Geladene_Daten['Trigger']
+        Export = Geladene_Daten['Export']
+        TRIGGER_DB = Trigger
+        TRIGGER_OFFSET = 0
+        print(IP, TRIGGER_DB, Export)
+    else:
+        print(f"Fehler beim laden der UI Daten {IP}")
 
     client = snap7.client.Client()
+
     try:
-        client.connect(PLC_IP, PLC_RACK, PLC_SLOT)
-        print(f"Verbunden mit SPS: {PLC_IP}")
+        client.connect(IP, Rack, Slot)
+        print(f"Verbunden mit SPS: {IP}")
         return client
     except Exception as e:
         print(f"Fehler beim Verbinden mit der SPS: {e}")
@@ -57,7 +55,6 @@ def check_trigger(client):
         print(f"Fehler beim Lesen des Trigger-Bits: {e}")
         reconnect(client)
         return check_trigger(client)
-    return False
 
 def reset_trigger(client):
     try:

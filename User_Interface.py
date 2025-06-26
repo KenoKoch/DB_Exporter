@@ -13,7 +13,7 @@ class UI:
 
         self.UI = ctk.CTk()
         self.UI.title("DB Exporter")
-        self.UI.geometry("460x650")  # Vergrößerte Fenstergröße
+        self.UI.geometry("460x650")
 
         # Eingaben zum Verbinden
         self.create_connection_inputs()
@@ -80,7 +80,7 @@ class UI:
 
             self.data_structure = []
             for data_type_var, offset_entry, name_entry in zip(self.data_type_entries, self.offset_entries, self.name_entries):
-                dt = data_type_var.get()  # Hier rufen wir den Wert der StringVar ab
+                dt = data_type_var.get()  
                 off = offset_entry.get()
                 name = name_entry.get()
                 if dt and off and name:

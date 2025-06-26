@@ -18,9 +18,7 @@ def main():
         UI_I.run()
     else:
          print("UI_data.json ist vorhanden. UI wird nicht ausgeführt.")
-
     
-
     # Verbindung zu SPS herstellen
     client = connect_to_plc()
     if not client:
@@ -35,12 +33,13 @@ def main():
             time_running = (time.time() - start_time) / 60 
             if time_running > 180:
                 reconnect(client)
+                start_time = time.time()
             # Trigger Bit überprüfen
             elif check_trigger(client):
                 print("Trigger erkannt. Starte Export...")
                 Export_DB(client)
                 reset_trigger(client)
-            time.sleep(4)  # 4s Pause
+            time.sleep(4)  # 4s Pause        
     except KeyboardInterrupt:
         print("Programm durch Benutzer beendet.")
     finally:
