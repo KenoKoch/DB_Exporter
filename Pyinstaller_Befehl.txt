@@ -1,1 +1,4 @@
 pyinstaller --console --add-data "C:\venv\Lib\site-packages\snap7\lib\snap7.dll;." --icon="C:\Icon.ico" --onefile --add-data "Daten.db:."   Main.py 
+
+Mit relativen Pfaden
+pyinstaller --console --add-data "venv\Lib\site-packages\snap7\lib\snap7.dll;." --icon="Icon.ico" --onefile --add-data "Daten.db:."   Main.py

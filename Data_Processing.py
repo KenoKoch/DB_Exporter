@@ -5,13 +5,15 @@ import datetime
 
 
 
-
+# Funktionen definieren
 def Lade_UI_Daten():
     with open('UI_data.json', 'r') as f:
         return json.load(f)
     
 def Werte_Übernehmen():
+    # globale Varieblen definieren
     global Geladene_Daten, Data_Struct, Export
+    # Variablen beschreiben
     Geladene_Daten = Lade_UI_Daten()
     Data_Struct = Geladene_Daten['data_structure']
     Export = Geladene_Daten['Export']
@@ -48,7 +50,7 @@ def DB_Erstellen(table_name='SPS_Export', db_name= "Daten.db"):
     conn.close()
     
 def DB_Speichern(values):
-    conn = sqlite3.connect('Daten.db')  # Ersetzen Sie 'Daten.db' durch den Pfad Ihrer Datenbank
+    conn = sqlite3.connect('Daten.db')  
     cursor = conn.cursor()
 
     values['Datum'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -68,12 +70,12 @@ def DB_Speichern(values):
         cursor.close()
         conn.close()
 
-
-
 def decode_s7_string(byte_string):
     actual_length = byte_string[1]
     return byte_string[2:2+actual_length].decode('ascii', errors='ignore').strip('\x00')
 
+
+# Hauptfunktion
 def Export_DB(client):
 
     # Datenstruktur laden
@@ -81,18 +83,17 @@ def Export_DB(client):
     DB_Erstellen()
     values = {}
 
-
     for index, (data_type, offset, name) in enumerate(Data_Struct):
         offset_int = int(offset)
         
         if isinstance(data_type, str) and "integer" in data_type.lower():
-            value = client.db_read(Export, offset_int, 2)  # DB-Nummer, Offset, Anzahl der Bytes
+            value = client.db_read(Export, offset_int, 2)  # Auslesen aus SPS, DB-Nummer, Offset, Anzahl der Bytes
             int_value = get_int(value, 0)  # Konvertierung in Integer
             column_name = name.replace('.', '_').replace('-', '_')
             values[column_name] = int_value
 
         elif isinstance(data_type, str) and "string" in data_type.lower():
-            value = client.db_read(Geladene_Daten['Export'], offset_int, 256)  # 256 Bytes für STRING
+            value = client.db_read(Geladene_Daten['Export'], offset_int, 256)  # Auslesen aus SPS, 256 Bytes für STRING
             string_value = decode_s7_string(value)  # Umwandlung in String
             column_name = name.replace('.', '_').replace('-', '_')
             values[column_name] = string_value
@@ -109,7 +110,7 @@ def Export_DB(client):
        
 
 
-# Aufrufen
+# Aufrufen wenn manueller Skript start
 def Main():
     Lade_UI_Daten()
     DB_Erstellen()

@@ -1,16 +1,16 @@
 ('C:\\Users\\kkoch\\OneDrive - '
- 'BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\build\\Main\\PYZ-00.pyz',
+ 'BorgWarner\\Documents\\14_IT_Stuff\\ItsMe\\DB_Exporter\\DB_Exporter\\build\\Main\\PYZ-00.pyz',
  [('Data_Processing',
    'C:\\Users\\kkoch\\OneDrive - '
-   'BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\Data_Processing.py',
+   'BorgWarner\\Documents\\14_IT_Stuff\\ItsMe\\DB_Exporter\\DB_Exporter\\Data_Processing.py',
    'PYMODULE'),
   ('PLC_Connection',
    'C:\\Users\\kkoch\\OneDrive - '
-   'BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\PLC_Connection.py',
+   'BorgWarner\\Documents\\14_IT_Stuff\\ItsMe\\DB_Exporter\\DB_Exporter\\PLC_Connection.py',
    'PYMODULE'),
   ('User_Interface',
    'C:\\Users\\kkoch\\OneDrive - '
-   'BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\User_Interface.py',
+   'BorgWarner\\Documents\\14_IT_Stuff\\ItsMe\\DB_Exporter\\DB_Exporter\\User_Interface.py',
    'PYMODULE'),
   ('__future__',
    'C:\\Users\\kkoch\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\__future__.py',

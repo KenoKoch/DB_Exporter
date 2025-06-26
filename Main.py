@@ -1,17 +1,17 @@
 from Data_Processing import Export_DB
-import time
 from User_Interface import UI
+from PLC_Connection import connect_to_plc, check_trigger, reset_trigger, reconnect
+import time
 import os
 import sys
 
 def main():
 
-
     # Setzen des Arbeitsverzeichnisses auf den Ort der Datei
     exe_path = os.path.dirname(sys.executable)
     os.chdir(exe_path)
 
-    
+    # Schauen ob schon Export Daten vorhanden
     if not os.path.exists('UI_data.json'):
         print("UI_data.json wurde nicht gefunden. Starte die UI ")
         UI_I = UI()
@@ -19,16 +19,24 @@ def main():
     else:
          print("UI_data.json ist vorhanden. UI wird nicht ausgeführt.")
 
-    from PLC_Connection import connect_to_plc, check_trigger, reset_trigger
+    
 
+    # Verbindung zu SPS herstellen
     client = connect_to_plc()
     if not client:
         return
 
+    # Warten bis Trigger Bit gesetzt
     print("Warte auf Trigger-Signal...")
     try:
+        start_time = time.time()
         while True:
-            if check_trigger(client):
+            # Schauen wie lange kein Trigger Bit mehr kam in Minuten falls zu lange neu Verbinden
+            time_running = (time.time() - start_time) / 60 
+            if time_running > 180:
+                reconnect(client)
+            # Trigger Bit überprüfen
+            elif check_trigger(client):
                 print("Trigger erkannt. Starte Export...")
                 Export_DB(client)
                 reset_trigger(client)

@@ -5,19 +5,23 @@ import time
 
 
 def Lade_UI_Daten():
-    with open('UI_data.json', 'r') as f:
-        return json.load(f)
+    try:
+        with open('UI_data.json', 'r') as f:
+            return json.load(f)
+    except:
+        return None
 
 # Laden der Daten
 Geladene_Daten = Lade_UI_Daten()
-IP = Geladene_Daten['IP']
-Rack = Geladene_Daten['Rack']
-Slot = Geladene_Daten['Slot']
-Trigger = Geladene_Daten['Trigger']
-Export = Geladene_Daten['Export']
+if Geladene_Daten != None:
+    IP = Geladene_Daten['IP']
+    Rack = Geladene_Daten['Rack']
+    Slot = Geladene_Daten['Slot']
+    Trigger = Geladene_Daten['Trigger']
+    Export = Geladene_Daten['Export']
 
-TRIGGER_DB = Trigger
-TRIGGER_OFFSET = 0
+    TRIGGER_DB = Trigger
+    TRIGGER_OFFSET = 0
 
 
 def connect_to_plc():
@@ -38,8 +42,8 @@ def connect_to_plc():
     
 def reconnect(client):
     try:
-        client.disconnect()  # Trennen Sie die Verbindung, falls sie besteht
-        time.sleep(2)  # Warten vor dem Wiederverbinden
+        client.disconnect()  # trennt die Vernindung falls besteht
+        time.sleep(2)  # Warten 
         client.connect(IP, Rack, Slot)  # Wiederherstellen der Verbindung
         print("Verbindung zur SPS wurde wiederhergestellt.")
     except Exception as e:
@@ -62,7 +66,7 @@ def reset_trigger(client):
     except Exception as e:
         print(f"Fehler beim Zurücksetzen des Trigger-Bits: {e}")
 
-
+# Aufrufen wenn manueller Skript start
 if __name__ == "__main__":
    connect_to_plc()
    check_trigger()

@@ -5,7 +5,7 @@ a = Analysis(
     ['Main.py'],
     pathex=[],
     binaries=[],
-    datas=[('C:\\Users\\kkoch\\OneDrive - BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\venv\\Lib\\site-packages\\snap7\\lib\\snap7.dll', '.'), ('Daten.db', '.')],
+    datas=[('venv\\Lib\\site-packages\\snap7\\lib\\snap7.dll', '.'), ('Daten.db', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['C:\\Users\\kkoch\\OneDrive - BorgWarner\\Desktop\\DB_Exporter\\DB_Exporter-Allgemein\\Icon.ico'],
+    icon=['Icon.ico'],
 )
