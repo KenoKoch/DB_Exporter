@@ -24,7 +24,7 @@ def connect_to_plc():
         Export = Geladene_Daten['Export']
         TRIGGER_DB = Trigger
         TRIGGER_OFFSET = 0
-        print(IP, TRIGGER_DB, Export)
+        print(f"{IP} Trigger DB:{TRIGGER_DB} Export DB:{Export}")
     else:
         print(f"Fehler beim laden der UI Daten {IP}")
 
